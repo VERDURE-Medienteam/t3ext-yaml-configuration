@@ -12,14 +12,17 @@ services:
       - name: 'console.command'
         command: 'yaml:export'
         schedulable: false
+        mode: 'cli'
 
   Supseven\YamlConfiguration\Command\ImportTableCommand:
     tags:
       - name: 'console.command'
         command: 'yaml:import'
         schedulable: false
+        mode: 'cli'
 
   Supseven\YamlConfiguration\Backend\ButtonBar\YamlExportButton:
     tags:
       - name: event.listener
         identifier: 'yaml-configuration/backend/yamlexportbutton'
+        event: TYPO3\CMS\Backend\Template\Components\ButtonBarEvent

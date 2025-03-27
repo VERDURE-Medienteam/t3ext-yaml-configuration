@@ -21,6 +21,8 @@ use TYPO3\CMS\Core\Package\PackageInterface;
 use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Doctrine\DBAL\FetchMode;
+use TYPO3\CMS\Core\Core\Environment;
 
 class AbstractTableCommand extends Command
 {
@@ -83,8 +85,8 @@ class AbstractTableCommand extends Command
         $result = $this->queryBuilderForTable($table)
             ->select('*')
             ->from($table)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchAssociative();
         if ($result) {
             $columnNames = \array_keys($result);
             $this->tableColumnCache[$table] = $columnNames;

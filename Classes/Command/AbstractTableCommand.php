@@ -91,9 +91,10 @@ class AbstractTableCommand extends Command
             $columnNames = \array_keys($result);
             $this->tableColumnCache[$table] = $columnNames;
         } else {
-            $result = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
-            $result = $result->getSchemaManager()->listTableColumns($table);
-            foreach ($result as $columnName => $columnProperties) {
+            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
+            $schemaManager = $connection->createSchemaManager();
+            $columns = $schemaManager->listTableColumns($table);
+            foreach ($columns as $columnName => $columnProperties) {
                 $columnNames[] = $columnName;
             }
             $this->tableColumnCache[$table] = $columnNames;

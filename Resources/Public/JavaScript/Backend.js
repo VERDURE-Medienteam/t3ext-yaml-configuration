@@ -1,6 +1,10 @@
 (function() {
     var httpRequest;
-    document.getElementsByClassName('t3js-yaml-export')[0].addEventListener('click', makeRequest);
+	const element = document.getElementsByClassName('t3js-yaml-export')[0];
+	if (element) {
+		element.addEventListener('click', makeRequest);
+	}
+
 
     function makeRequest() {
         httpRequest = new XMLHttpRequest();
